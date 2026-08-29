@@ -1,0 +1,34 @@
+name: Assemble carousel SVGs
+
+on:
+  push:
+    paths:
+      - parts/READY
+
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Concatenate parts and commit SVGs
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          for n in 1 2 3; do
+            shopt -s nullglob
+            parts=(parts/car-${n}.svg.part*)
+            if [ ${#parts[@]} -eq 0 ]; then
+              echo "missing parts for car-${n}" >&2
+              exit 1
+            fi
+            cat "${parts[@]}" > "car-${n}.svg"
+            wc -c "car-${n}.svg"
+            git add "car-${n}.svg"
+            git commit -m "Add MonsieurDPE Instagram carousel slide ${n}"
+          done
+          git rm -r parts
+          git commit -m "Remove SVG assemble parts"
+          git push
