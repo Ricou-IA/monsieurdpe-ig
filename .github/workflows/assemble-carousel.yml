@@ -24,10 +24,10 @@ jobs:
               echo "missing parts for car-${n}" >&2
               exit 1
             fi
-            cat "${parts[@]}" > "car-${n}.svg"
-            wc -c "car-${n}.svg"
-            git add "car-${n}.svg"
-            git commit -m "Add MonsieurDPE Instagram carousel slide ${n}"
+            cat "${parts[@]}" > "da-car-${n}.svg"
+            wc -c "da-car-${n}.svg"
+            git add "da-car-${n}.svg"
+            git commit -m "Add DA compositor carousel slide ${n}"
           done
           git rm -r parts
           git commit -m "Remove SVG assemble parts"
