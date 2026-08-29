@@ -1,0 +1,32 @@
+name: Patch da-car-2 two bytes
+
+on:
+  push:
+    paths:
+      - patch-car2
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch two corrupt bytes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          python3 << 'PY'
+          from pathlib import Path
+          p = Path("da-car-2.svg")
+          b = bytearray(p.read_bytes())
+          assert b[7828] == ord("+"), hex(b[7828])
+          assert b[14933] == ord("N"), hex(b[14933])
+          b[7828] = ord("/")
+          b[14933] = ord("O")
+          p.write_bytes(b)
+          print("patched", len(b))
+          PY
+          git add da-car-2.svg
+          git commit -m "Fix two corrupt bytes in DA slide 2"
+          git push
