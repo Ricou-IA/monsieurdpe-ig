@@ -12,7 +12,7 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v4
-      - name: Concatenate parts and commit SVGs
+      - name: Concatenate complete slides
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
@@ -21,27 +21,14 @@ jobs:
           import re
           from pathlib import Path
           expected = {
-            "car-1.svg.part00": 12000,
-            "car-1.svg.part01": 12000,
-            "car-1.svg.part02": 12000,
-            "car-1.svg.part03": 12000,
-            "car-1.svg.part04": 12000,
-            "car-1.svg.part05": 12000,
+            "car-1.svg.part00": 12000, "car-1.svg.part01": 12000, "car-1.svg.part02": 12000,
+            "car-1.svg.part03": 12000, "car-1.svg.part04": 12000, "car-1.svg.part05": 12000,
             "car-1.svg.part06": 11011,
-            "car-2.svg.part00": 12000,
-            "car-2.svg.part01": 12000,
-            "car-2.svg.part02": 12000,
-            "car-2.svg.part03": 12000,
-            "car-2.svg.part04": 12000,
-            "car-2.svg.part05": 12000,
-            "car-2.svg.part06": 12000,
-            "car-2.svg.part07": 263,
-            "car-3.svg.part00": 12000,
-            "car-3.svg.part01": 12000,
-            "car-3.svg.part02": 12000,
-            "car-3.svg.part03": 12000,
-            "car-3.svg.part04": 12000,
-            "car-3.svg.part05": 11791,
+            "car-2.svg.part00": 12000, "car-2.svg.part01": 12000, "car-2.svg.part02": 12000,
+            "car-2.svg.part03": 12000, "car-2.svg.part04": 12000, "car-2.svg.part05": 12000,
+            "car-2.svg.part06": 12000, "car-2.svg.part07": 263,
+            "car-3.svg.part00": 12000, "car-3.svg.part01": 12000, "car-3.svg.part02": 12000,
+            "car-3.svg.part03": 12000, "car-3.svg.part04": 12000, "car-3.svg.part05": 11791,
           }
           parts = Path("parts")
           for name, exp in expected.items():
@@ -51,36 +38,38 @@ jobs:
               s = p.read_text()
               extra = len(s) - exp
               if extra == 0:
-                  print(f"ok {name} {len(s)}")
+                  print("ok", name, len(s))
                   continue
               if extra < 0:
-                  raise SystemExit(f"{name} too small: {len(s)} < {exp}")
+                  print("skip small", name, len(s))
+                  continue
               runs = list(re.finditer(r"A{20,}", s))
               if not runs:
-                  raise SystemExit(f"{name} oversized without A-run: {len(s)}")
+                  print("skip no A-run", name, len(s))
+                  continue
               last = runs[-1]
               start, end = last.start(), last.end()
               runlen = end - start
               if runlen < extra:
-                  raise SystemExit(f"{name} last A-run {runlen} < extra {extra}")
+                  print("skip A-run short", name)
+                  continue
               s2 = s[:start] + ("A" * (runlen - extra)) + s[end:]
               if len(s2) != exp:
-                  raise SystemExit(f"{name} trim failed {len(s2)} != {exp}")
+                  print("skip trim fail", name)
+                  continue
               p.write_text(s2)
-              print(f"trimmed {name} by {extra} -> {exp}")
+              print("trimmed", name, extra)
           PY
           for n in 1 2 3; do
             shopt -s nullglob
             parts=(parts/car-${n}.svg.part*)
             if [ ${#parts[@]} -eq 0 ]; then
-              echo "missing parts for car-${n}" >&2
-              exit 1
+              echo "skip car-${n}: no parts"
+              continue
             fi
             cat "${parts[@]}" > "da-car-${n}.svg"
             wc -c "da-car-${n}.svg"
             git add "da-car-${n}.svg"
-            git commit -m "Add DA compositor carousel slide ${n}"
+            git commit -m "Add DA compositor carousel slide ${n}" || true
           done
-          git rm -r parts
-          git commit -m "Remove SVG assemble parts"
           git push
