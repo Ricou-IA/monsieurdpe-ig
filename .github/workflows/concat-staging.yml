@@ -1,0 +1,54 @@
+name: Concat staging SVG parts
+
+on:
+  push:
+    paths:
+      - staging/GO
+
+jobs:
+  concat:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Concatenate staging chunks into parts
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          python3 << 'PY'
+          from pathlib import Path
+          staging = Path("staging")
+          specs = {
+            "p03": ("parts/car-2.svg.part03", 12000),
+            "p04": ("parts/car-2.svg.part04", 12000),
+            "p05": ("parts/car-2.svg.part05", 12000),
+            "p06": ("parts/car-2.svg.part06", 12000),
+            "c30": ("parts/car-3.svg.part00", 12000),
+            "c31": ("parts/car-3.svg.part01", 12000),
+            "c32": ("parts/car-3.svg.part02", 12000),
+            "c33": ("parts/car-3.svg.part03", 12000),
+            "c34": ("parts/car-3.svg.part04", 12000),
+            "c35": ("parts/car-3.svg.part05", 11791),
+          }
+          wrote = []
+          for prefix, (dest, explen) in specs.items():
+              files = sorted(staging.glob(f"{prefix}-*.txt"))
+              if not files:
+                  continue
+              data = "".join(p.read_text() for p in files)
+              print(prefix, len(files), "files", len(data), "bytes")
+              if len(data) != explen:
+                  print("skip size mismatch", prefix)
+                  continue
+              Path(dest).parent.mkdir(parents=True, exist_ok=True)
+              Path(dest).write_text(data)
+              wrote.append(dest)
+              print("wrote", dest)
+          Path("/tmp/wrote.txt").write_text("\n".join(wrote))
+          PY
+          if [ -s /tmp/wrote.txt ]; then
+            git add parts
+            git commit -m "Assemble SVG parts from verified staging chunks" || true
+            git push
+          fi
