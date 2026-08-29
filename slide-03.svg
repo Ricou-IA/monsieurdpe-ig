@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1350" viewBox="0 0 1080 1350">
+  <rect width="1080" height="1350" fill="#FBF8F2"/>
+  <g transform="translate(40,20) scale(0.22)">
+    <g transform="rotate(-7 320 250)">
+      <path fill="#0d47a1" d="M198 252 C 196 214 208 172 238 148 C 258 134 278 140 294 162 C 308 140 332 126 362 132 C 408 142 448 178 456 252 Z"/>
+      <path fill="#1B1928" d="M296 150 C 304 172 310 194 310 218 C 302 192 294 170 288 150 C 291 148 294 148 296 150 Z"/>
+      <path fill="#319834" d="M196 254 L232 254 L228 302 L190 302 Z"/>
+      <path fill="#33CC31" d="M235 254 L270 254 L268 302 L231 302 Z"/>
+      <path fill="#CBFC34" d="M273 254 L308 254 L308 302 L271 302 Z"/>
+      <path fill="#FBFE06" d="M311 254 L346 254 L348 302 L311 302 Z"/>
+      <path fill="#FBCC05" d="M349 254 L384 254 L388 302 L351 302 Z"/>
+      <path fill="#FC9935" d="M387 254 L422 254 L428 302 L391 302 Z"/>
+      <path fill="#FC0205" d="M425 254 L454 254 L462 302 L431 302 Z"/>
+      <path fill="#0d47a1" d="M148 292 C 72 304 42 338 62 368 C 98 410 210 432 320 434 C 450 432 575 402 602 360 C 618 334 592 300 512 286 C 460 276 400 270 320 270 C 250 270 190 278 148 292 Z"/>
+      <path fill="#1B1928" d="M170 368 C 250 402 410 404 550 352 C 510 386 380 410 240 400 C 200 394 178 380 170 368 Z"/>
+    </g>
+    <circle cx="520" cy="390" r="70" fill="none" stroke="#1B1928" stroke-width="22"/>
+    <rect x="560" y="430" width="28" height="110" rx="10" fill="#1B1928" transform="rotate(40 560 430)"/>
+  </g>
+  <text x="250" y="118" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="800" fill="#4232C4">MonsieurDPE</text>
+  <text x="88" y="320" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="800" fill="#1B1928">&#192; vous d'ouvrir</text>
+  <text x="88" y="388" font-family="Arial, Helvetica, sans-serif" font-size="56" font-weight="800" fill="#1B1928">le dossier.</text>
+  <text x="88" y="520" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#1B1928">On ouvre l'enqu&#234;te.</text>
+  <text x="88" y="562" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#1B1928">Gratuitement.</text>
+  <text x="88" y="680" font-family="Courier New, monospace" font-size="16" fill="#6E6A7A">DOSSIER 01  ·  LA SUITE</text>
+  <g transform="translate(88,1088)">
+    <rect x="0" y="0" width="128" height="52" fill="#319834"/><text x="64" y="34" text-anchor="middle" font-family="Arial" font-size="20" font-weight="800" fill="#fff">A</text>
+    <rect x="129" y="0" width="128" height="52" fill="#33CC31"/><text x="193" y="34" text-anchor="middle" font-family="Arial" font-size="20" font-weight="800" fill="#fff">B</text>
+    <rect x="258" y="0" width="128" height="52" fill="#CBFC34"/><text x="322" y="34" text-anchor="middle" font-family="Arial" font-size="20" font-weight="800" fill="#1B1928">C</text>
+    <rect x="387" y="0" width="128" height="52" fill="#FBFE06"/><text x="451" y="34" text-anchor="middle" font-family="Arial" font-size="20" font-weight="800" fill="#1B1928">D</text>
+    <rect x="516" y="0" width="128" height="52" fill="#FBCC05"/><text x="580" y="34" text-anchor="middle" font-family="Arial" font-size="20" font-weight="800" fill="#1B1928">E</text>
+    <rect x="645" y="0" width="128" height="52" fill="#FC9935"/><text x="709" y="34" text-anchor="middle" font-family="Arial" font-size="20" font-weight="800" fill="#fff">F</text>
+    <rect x="774" y="0" width="130" height="52" fill="#FC0205"/><text x="839" y="34" text-anchor="middle" font-family="Arial" font-size="20" font-weight="800" fill="#fff">G</text>
+  </g>
+  <text x="88" y="1224" font-family="Arial, Helvetica, sans-serif" font-size="22" fill="#1B1928">monsieurdpe.fr</text>
+</svg>
