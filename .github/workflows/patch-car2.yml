@@ -2,6 +2,8 @@ name: Patch da-car-2 two bytes
 
 on:
   push:
+    branches:
+      - main
     paths:
       - patch-car2
 

@@ -2,6 +2,8 @@ name: Assemble carousel SVGs
 
 on:
   push:
+    branches:
+      - main
     paths:
       - parts/READY
 

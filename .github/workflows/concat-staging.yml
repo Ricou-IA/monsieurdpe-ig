@@ -2,6 +2,8 @@ name: Concat staging SVG parts
 
 on:
   push:
+    branches:
+      - main
     paths:
       - staging/GO
 
